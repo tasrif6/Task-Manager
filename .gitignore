@@ -1,0 +1,23 @@
+# Python virtual environment and caches
+backend/.venv/
+backend/__pycache__/
+backend/*.pyc
+backend/tasks.db
+*.pyc
+__pycache__/
+
+# Frontend build and dependencies
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/build/
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# Miscellaneous
+.DS_Store
+Thumbs.db
+.env
