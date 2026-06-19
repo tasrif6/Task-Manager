@@ -47,6 +47,8 @@ interface Task {
   updated_at: string;
 }
 
+const apiBase = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+
 export default function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
@@ -69,7 +71,7 @@ export default function Home() {
   const fetchTasks = async () => {
     try {
       setLoading(true);
-      const res = await fetch("/api/tasks");
+      const res = await fetch(`${apiBase}/api/tasks`);
       if (!res.ok) {
         throw new Error("Failed to fetch tasks");
       }
@@ -94,7 +96,7 @@ export default function Home() {
     if (!newTitle.trim()) return;
 
     try {
-      const res = await fetch("/api/tasks", {
+      const res = await fetch(`${apiBase}/api/tasks`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -123,7 +125,7 @@ export default function Home() {
   // Update status
   const handleStatusChange = async (taskId: number, newStatusVal: "To Do" | "In Progress" | "Done") => {
     try {
-      const res = await fetch(`/api/tasks/${taskId}/status`, {
+      const res = await fetch(`${apiBase}/api/tasks/${taskId}/status`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: newStatusVal }),
@@ -160,7 +162,7 @@ export default function Home() {
     if (!editingTask || !editTitle.trim()) return;
 
     try {
-      const res = await fetch(`/api/tasks/${editingTask.id}`, {
+      const res = await fetch(`${apiBase}/api/tasks/${editingTask.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -188,7 +190,7 @@ export default function Home() {
     if (!confirm("Are you sure you want to delete this task?")) return;
 
     try {
-      const res = await fetch(`/api/tasks/${taskId}`, {
+      const res = await fetch(`${apiBase}/api/tasks/${taskId}`, {
         method: "DELETE",
       });
 
