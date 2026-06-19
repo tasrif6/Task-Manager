@@ -1,8 +1,12 @@
+import os
+from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-DATABASE_URL = "postgresql://postgres.gsdoutuarzmkbdzycuyn:VgeN0swTQMGsUGdF@aws-1-ap-northeast-1.pooler.supabase.com:6543/postgres"
+load_dotenv()  # loads variables from .env into environment
+
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 connect_args = {"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else {}
 
