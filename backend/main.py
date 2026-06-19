@@ -21,6 +21,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+def backend_root():
+    return {"status": "Backend Server is Running Perfectly"}
+    
 @app.get("/api/tasks", response_model=List[schemas.Task])
 def read_tasks(db: Session = Depends(get_db)):
     return crud.get_tasks(db)
